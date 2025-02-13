@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            border: 2px solid;
+            border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            border-image-slice: 1;
+            animation: rainbow-background 15s infinite;
+        }
+
+        @keyframes rainbow-background {
+            0% { background-color: #121212; }
+            50% { background-color: #1a1a1a; }
+            100% { background-color: #121212; }
+        }
+
+        .menu-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5%;
+            padding: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .menu-content {
+            display: none;
+            position: fixed;
+            top: 50px;
+            right: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+            z-index: 10;
+        }
+
+        .menu-content a {
+            display: block;
+            color: #ffffff;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .menu-content a:hover {
+            background-color: #444;
+        }
+
+        .background-photo {
+            position: relative;
+            width: 100%;
+            height: 215px;
+            background-image: url('https://i.ibb.co/tjbKyjS/anime-digital-art-sunrise-wallpaper-1680x1050-5.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .profile-picture {
+            display: block;
+            margin: -1px auto 0;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+            animation: rainbow-border 15s infinite linear;
+        }
+
+        @keyframes rainbow-border {
+            0% { border-color: red; }
+            10% { border-color: red; }
+            20% { border-color: blue; }
+            30% { border-color: red; }
+            40% { border-color: blue; }
+            50% { border-color: red; }
+            60% { border-color: blue; }
+            70% { border-color: red; }
+            80% { border-color: blue; }
+            90% { border-color: red; }
+           
+            100% { border-color: blue; }
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            color: #dddddd;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+        }
+
+        .old-website-note {
+            color: #FF6347;
+        }
+
+        footer {
+            text-align: center;
+            color: #aaaaaa;
+            background-color: #333333;
+            padding: 10px;
+            clear: both;
+        }
+
+        .quote-container {
+            position: relative;
+            margin-top: 3px;
+        }
+
+        .quote-container .quote-text {
+            display: none;
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 1.5);
+            z-index: 2;
+            max-width: 80%;
+            max-height: 80%;
+            overflow: auto;
+            animation: slide-down 1.3s ease;
+        }
+
+        .quote-container.show .quote-text {
+            display: block;
+        }
+
+        .quote-button {
+            text-decoration: none;
+            display: inline-block;
+            padding: 1px 1px;
+            border-radius: 100px;
+            background-color: #343434;
+            transition: background-position 0.5s ease;
+        }
+
+        .quote-button:hover {
+            background-position: 100% 0;
+        }
+
+        @keyframes slide-down {
+            0% { transform: translate(-50%, -90%); opacity: 0; }
+            100% { transform: translate(-50%, -50%); opacity: 1; }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .coffee-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #EC5800;
+            color: black;
+            text-decoration: none;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .coffee-button:hover {
+            background-color: #ff9933;
+        }
+
+        .non-clickable-iframe {
+            pointer-events: none;
+        }
+
+        .running-color {
+            font-size: 1.5em;
+            font-weight: bold;
+            background-image: linear-gradient(to right, #00c6ff, #0072ff, #00c6ff, #8e2de2, #4a00e0, #8e2de2, #00c6ff);
+            background-size: 200% auto;
+            color: transparent;
+            text-align: center;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: animate-running-color 100s linear infinite;
+        }
+
+        @keyframes animate-running-color {
+            0% { background-position: 0 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* RGB effect for quote button */
+        .rgb-effect {
+            animation: rgb-animation 3s infinite;
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-image: linear-gradient(90deg, red, yellow, green, cyan, blue, magenta, red, violet);
+            color: transparent;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        @keyframes rgb-animation {
+            0% { background-position: 0%; }
+            100% { background-position: 100%; }
+        }
+
+        /* Loading effect styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-text-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-text {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .loading-plus {
+            font-size: 24px;
+            animation: rotate-plus 1s infinite linear;
+        }
+
+        @keyframes rotate-plus {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Preloader animation */
+        .ip {
+            width: 16em;
+            height: 8em;
+        }
+
+        .ip__track {
+            stroke: hsl(var(--hue),90%,90%);
+            transition: stroke var(--trans-dur);
+        }
+
+        .ip__worm1,
+        .ip__worm2 {
+            animation: worm1 2s linear infinite;
+        }
+
+        .ip__worm2 {
+            animation-name: worm2;
+        }
+
+        @keyframes worm1 {
+            from {
+                stroke-dashoffset: 0;
+            }
+            50% {
+                animation-timing-function: steps(1);
+                stroke-dashoffset: -358;
+            }
+            50.01% {
+                animation-timing-function: linear;
+                stroke-dashoffset: 358;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes worm2 {
+            from {
+                stroke-dashoffset: 358;
+            }
+            50% {
+                stroke-dashoffset: 0;
+            }
+            to {
+                stroke-dashoffset: -358;
+            }
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content p {
+            color: black;
+            margin: 20px 0;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            color: #aaa;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <svg class="ip" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#5ebd3e" />
+                    <stop offset="33%" stop-color="#ffb900" />
+                    <stop offset="67%" stop-color="#f78200" />
+                    <stop offset="100%" stop-color="#e23838" />
+                </linearGradient>
+                <linearGradient id="grad2" x1="1" y1="0" x2="0" y2="0">
+                    <stop offset="0%" stop-color="#e23838" />
+                    <stop offset="33%" stop-color="#973999" />
+                    <stop offset="67%" stop-color="#009cdf" />
+                    <stop offset="100%" stop-color="#5ebd3e" />
+                </linearGradient>
+            </defs>
+            <g fill="none" stroke-linecap="round" stroke-width="16">
+                <g class="ip__track" stroke="#ddd">
+                    <path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
+                    <path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
+                </g>
+                <g stroke-dasharray="180 656">
+                    <path class="ip__worm1" stroke="url(#grad1)" stroke-dashoffset="0" d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
+                    <path class="ip__worm2" stroke="url(#grad2)" stroke-dashoffset="358" d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
+                </g>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Modal -->
+    <div id="birthdayModal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <p>HAPPY BIRTHDAY TO ME! 🎉
+            Today is April 20. I hope someone will give me a gift 🎁. Please, it only happens once a year 🥺. I would really appreciate it!</p>
+            <a href="https://devgadget.com/clipboard.html?Gift" class="coffee-button">GIFT</a>
+        </div>
+    </div>
+
+    <!-- Existing content -->
+    <button class="menu-button" onclick="toggleMenu()">☰</button>
+    <div class="menu-content" id="menuContent">
+        <a href="#" onclick="showAbout()">About This Page</a>
+        <a href="https://projects201.github.io/Project/Pro">Projects</a>
+   
+    
+   <a href="https://warpdotcom.github.io/CatchTheStars/catch_stars.html"> Play Game</a>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let loadingOverlay = document.getElementById('loadingOverlay');
+            setTimeout(function() {
+                loadingOverlay.style.display = 'none';
+            }, 3000);
+
+            // Check for birthday modal
+            let birthdayModal = document.getElementById('birthdayModal');
+            let closeModal = document.querySelector('.modal .close');
+            const today = new Date();
+            const month = today.getMonth() + 1;
+            const day = today.getDate();
+
+            if (month === 4 && day === 20) {
+                birthdayModal.style.display = 'block';
+            }
+
+            closeModal.onclick = function() {
+                birthdayModal.style.display = 'none';
+            }
+
+            window.onclick = function(event) {
+                if (event.target === birthdayModal) {
+                    birthdayModal.style.display = 'none';
+                }
+            }
+
+            // Quote button functionality
+            let quoteButton = document.querySelector(".quote-button");
+            let quoteContainer = document.querySelector(".quote-container");
+            let quoteText = document.querySelector(".quote-text");
+
+            quoteButton.addEventListener("click", function(event) {
+                event.preventDefault();
+                quoteContainer.classList.toggle("show");
+                
+                // Hide quote container if it's visible
+                if (quoteContainer.classList.contains("show")) {
+                    quoteText.style.display = 'block'; // Show the quote text
+                } else {
+                    quoteText.style.display = 'none'; // Hide it if not
+                }
+            });
+
+            // Hide the quote container when clicking outside of it
+            window.addEventListener("click", function(event) {
+                if (quoteContainer.classList.contains("show") && !quoteButton.contains(event.target) && !quoteText.contains(event.target)) {
+                    quoteContainer.classList.remove("show");
+                    quoteText.style.display = 'none'; // Hide the quote text
+                }
+            });
+
+            // Track page visits
+            let visitCount = localStorage.getItem('visitCount') || 0;
+            visitCount++;
+            localStorage.setItem('visitCount', visitCount);
+
+            // Check if the user has seen the popup before
+            let hasSeenPopup = localStorage.getItem('hasSeenPopup');
+
+            if (visitCount > 1 && !hasSeenPopup) {
+                alert("Hi there again :) How can I help you today?");
+                localStorage.setItem('hasSeenPopup', 'true'); // Set the flag after showing the popup
+            }
+
+            // Update footer year
+            const year = new Date().getFullYear();
+            document.getElementById('footer-year').textContent = year;
+        });
+
+        function toggleMenu() {
+            var menuContent = document.getElementById("menuContent");
+            menuContent.style.display = menuContent.style.display === "block" ? "none" : "block";
+        }
+
+        function showAbout() {
+            alert("This is a personal information page where you can contact or message me. If I'm offline, please feel free to leave a message or reach out through the provided contact options.");
+        }
+    </script>
+
+    <iframe src="https://free.timeanddate.com/clock/i9h33kk0/n145/tlph/fn7/fcf00/pct/ftb/pd2/tt0/tm1/td1/th2" frameborder="0" width="249" height="19" allowtransparency="true" class="non-clickable-iframe"></iframe>
+
+    <div class="background-photo">
+        <img class="profile-picture" src="https://i.ibb.co/v6mYpwCT/IMG-20250210-092350.jpg" alt="IMG-20250210-092350" oncontextmenu="return false;">
+    </div>
+
+    <h1 class="running-color">NORWELL VALDERAMOS</h1>
+    <p><q style="color: #ffffff;">Unexpected is better than planned.</q></p>
+    <hr>
+
+    <div class="contact-info">
+        <a href="https://jpst.it/45j7E" class="coffee-button">BUY ME A COFFEE</a>
+        <p><i class="fas fa-envelope" style="color: #ffcc00;"></i> <a href="mailto:norwell.av20@gmail.com" style="color: inherit; text-decoration: underline;">norwell.av20@gmail.com</a></p>
+        <p><i class="fas fa-phone" style="color: #ffcc00;"></i> <a href="tel:09666656662" style="color: inherit; text-decoration: underline;">phone number (available)</a></p>
+        <p><i class="fab fa-facebook" style="color: #1877f2;"></i> <a href="https://www.facebook.com/infinity.01.01.02" style="color: #1877f2;">other FB account</a></p>
+        <p style="color: #FF0000;">Old website: <a href="https://itsme49.wordpress.com/?fbclid=IwZXh0bgNhZW0CMTEAAR3AG0_6CW6L40A5UcY6_rYy0LDFGEUxLKGbHpFfib8-HrAYiU-g1okACmk_aem_TQsH9NU6uhuLSCYpCQCLaw" style="color: #4CAF50;">Click here to view</a></p>
+        <p class="old-website-note">Old Website no longer operational, but still accessible</p>
+    </div>
+    <hr>
+
+    <div class="quote-container">
+        <a href="#" class="quote-button rgb-effect">Lift My Spirits, Please!</a>
+        <div class="quote-text">
+            <embed src="https://www.notion-widgets.com/embed/66a22022d1171eb190adb847" style="width: 180px; height: 368px; max-width: 100%; max-height: 80%; margin: 0 auto;">
+        </div>
+    </div>
+
+    <footer>All rights reserved © <span id="footer-year">2024</span> To God be the Glory.</footer>
+</body>
+</html>
